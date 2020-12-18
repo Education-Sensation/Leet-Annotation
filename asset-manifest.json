@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Leet-Annotation/static/css/main.73efbf52.chunk.css",
+    "main.js": "/Leet-Annotation/static/js/main.b213e103.chunk.js",
+    "main.js.map": "/Leet-Annotation/static/js/main.b213e103.chunk.js.map",
+    "runtime-main.js": "/Leet-Annotation/static/js/runtime-main.64bdb037.js",
+    "runtime-main.js.map": "/Leet-Annotation/static/js/runtime-main.64bdb037.js.map",
+    "static/js/2.fb77abe4.chunk.js": "/Leet-Annotation/static/js/2.fb77abe4.chunk.js",
+    "static/js/2.fb77abe4.chunk.js.map": "/Leet-Annotation/static/js/2.fb77abe4.chunk.js.map",
+    "static/js/3.11aeb336.chunk.js": "/Leet-Annotation/static/js/3.11aeb336.chunk.js",
+    "static/js/3.11aeb336.chunk.js.map": "/Leet-Annotation/static/js/3.11aeb336.chunk.js.map",
+    "index.html": "/Leet-Annotation/index.html",
+    "static/css/main.73efbf52.chunk.css.map": "/Leet-Annotation/static/css/main.73efbf52.chunk.css.map",
+    "static/js/2.fb77abe4.chunk.js.LICENSE.txt": "/Leet-Annotation/static/js/2.fb77abe4.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/Leet-Annotation/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.64bdb037.js",
+    "static/js/2.fb77abe4.chunk.js",
+    "static/css/main.73efbf52.chunk.css",
+    "static/js/main.b213e103.chunk.js"
+  ]
+}
