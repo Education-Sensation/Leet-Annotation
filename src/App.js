@@ -7,6 +7,7 @@ function App() {
       <h1>Hello World</h1>
       <h1>Hello World</h1>
       <h1>Hello World</h1>
+      <h1>Github pages is so broken</h1>
     </div>
   );
 }
