@@ -5,43 +5,52 @@ export default class AddNoteForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {tagFormIsHidden: true};
+        this.handleTagFormDisplay = this.handleTagFormDisplay.bind(this);
+    }
+
+    handleTagFormDisplay(shouldHide) {
+        // if bool shouldHide is true, hides form; else, shows form        
+        this.setState({tagFormIsHidden: shouldHide});
     }
 
     render() {
         // decide whether to show the <AddTagForm /> or just an empty div
-        const emptyDiv = <div></div>;
-        let tagForm = emptyDiv;
+        const emptySpan = <span></span>;
+        let tagForm = emptySpan;
 
-        if (! this.state.tagFormIsHidden) {
-            tagForm = <AddTagForm />;
+        if (!this.state.tagFormIsHidden) {
+            tagForm = <AddTagForm hideForm={this.handleTagFormDisplay} />;
         }
 
         return (
             <div>
                 <h3>New Note</h3>
                 <form>
-                <label for="note-field"></label>
+                <label htmlFor="note-field"></label>
                 <textarea
                     name="note-field"
                     id="note-field"
                     placeholder="have any thoughts to write?"
                 ></textarea>
 
-                <label for="keyphrase-field">key phrase</label>
+                <label htmlFor="keyphrase-field">key phrase</label>
                 <input name="keyphrase-field" id="keyphrase-field" type="text"></input>
 
-                <label for="tags-field">tags</label>
+                <label htmlFor="tags-field">tags</label>
                 <input name="tags-field" id="tags-field" type="text"></input>
 
                 {/* shows <AddTagForm /> */}
-                <button>create new tag &#12297;</button>
+                <button type='button' onClick={() => {
+                        this.handleTagFormDisplay(false);
+                    }}>create new tag &#12297;</button>
 
                 {/* add this note to the App component’s dictionary */}
-                <button>Enter</button>
+                <button type='button'>Enter</button>
+
+                </form>
 
                 {tagForm}
 
-                </form>
             </div>
       );
     }
