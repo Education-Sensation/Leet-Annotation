@@ -4,36 +4,45 @@ import AddTagForm from "./addTagForm";
 export default class AddNoteForm extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {tagFormIsHidden: true};
     }
 
     render() {
-      return (
-        <div>
-            <h3>New Note</h3>
-            <form>
-            <label for="note-field"></label>
-            <textarea
-                name="note-field"
-                id="note-field"
-                placeholder="have any thoughts to write?"
-            ></textarea>
+        // decide whether to show the <AddTagForm /> or just an empty div
+        const emptyDiv = <div></div>;
+        let tagForm = emptyDiv;
 
-            <label for="keyphrase-field">key phrase</label>
-            <input name="keyphrase-field" id="keyphrase-field" type="text"></input>
+        if (! this.state.tagFormIsHidden) {
+            tagForm = <AddTagForm />;
+        }
 
-            <label for="tags-field">tags</label>
-            <input name="tags-field" id="tags-field" type="text"></input>
+        return (
+            <div>
+                <h3>New Note</h3>
+                <form>
+                <label for="note-field"></label>
+                <textarea
+                    name="note-field"
+                    id="note-field"
+                    placeholder="have any thoughts to write?"
+                ></textarea>
 
-            {/* shows <AddTagForm /> */}
-            <button>create new tag &#12297;</button>
+                <label for="keyphrase-field">key phrase</label>
+                <input name="keyphrase-field" id="keyphrase-field" type="text"></input>
 
-            {/* add this note to the App component’s dictionary */}
-            <button>Enter</button>
+                <label for="tags-field">tags</label>
+                <input name="tags-field" id="tags-field" type="text"></input>
 
-            <AddTagForm />
+                {/* shows <AddTagForm /> */}
+                <button>create new tag &#12297;</button>
 
-            </form>
-        </div>
+                {/* add this note to the App component’s dictionary */}
+                <button>Enter</button>
+
+                {tagForm}
+
+                </form>
+            </div>
       );
     }
   }
