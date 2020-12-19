@@ -8,6 +8,7 @@ function App() {
   return (
     <div className="App">
       <h1>Leet Reader</h1>
+      <NoteDisplayUI />
       <AddNoteForm />
       <AddReadingTextForm />
     </div>
