@@ -8,8 +8,9 @@ import NoteDisplayUI from "./noteDisplayUI";
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {readingText: this.getText()};  // readingText is an array of strings each representing paragraphs
- }
+    // this.state = {readingText: this.getText()};  // TODO 1: readingText is an array of strings each representing paragraphs (currently just a string)
+    this.state = {readingText: 'initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string'};
+  }
 
   setReadingText(newText) {
     this.setState({readingText: newText});
@@ -19,12 +20,12 @@ class App extends React.Component {
     const response = await fetch(
       "https://baconipsum.com/api/?type=all-meat&paras=3&start-with-lorem=1"
     );
-    const data = await response.json();  // TODO: please turn the data varaible into an array. render() expects this.state.readingText to be an array
+    const data = await response.json();  // TODO 1: please assign an array to this data varaible, so setReadingText() in the next line sets this.readingText to an array of strings. See below TODO
     this.setReadingText(data);
   };
 
   render() {
-    const paragraphs = ['graph1', 'graph2', 'graph3'].map((item) => <p>{item}</p>);
+    const paragraphs = <p>{this.state.readingText}</p>;  // TODO 1: once this.state.readingText is an array of strings, uncomment the below code to replace this temp line
     // const paragraphs = this.state.readingText.map((item, index) => {
     //   return <p key={index}>{item}</p>;
     // });
@@ -33,7 +34,7 @@ class App extends React.Component {
       <div className="App">
         <div className="readingText">{paragraphs}</div>
         <NoteDisplayUI />
-        <AddReadingTextForm onSubmit={this.setReadingText} />
+        <AddReadingTextForm submitNewReadingText={this.setReadingText} />
         <AddNoteForm />
       </div>
     );  
