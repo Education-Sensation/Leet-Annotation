@@ -1,4 +1,5 @@
 import React from "react";
+import AddTagForm from "./addTagForm";
 
 export default function AddNoteForm() {
   return (
@@ -23,6 +24,9 @@ export default function AddNoteForm() {
 
         {/* add this note to the App component’s dictionary */}
         <button>Enter</button>
+
+        <AddTagForm />
+
       </form>
     </div>
   );
