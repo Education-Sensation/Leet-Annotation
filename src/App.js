@@ -10,6 +10,7 @@ class App extends React.Component {
     super();
     // this.state = {readingText: this.getText()};  // TODO 1: readingText is an array of strings each representing paragraphs (currently just a string)
     this.state = {readingText: 'initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string'};
+    this.setReadingText = this.setReadingText.bind(this);
   }
 
   setReadingText(newText) {
