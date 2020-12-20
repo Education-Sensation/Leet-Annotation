@@ -1,5 +1,6 @@
 import React from "react";
 import AddTagForm from "./addTagForm";
+import TagSelector from "./tagSelector";
 
 // Return an array of the selected opion values
 // select is an HTML select element
@@ -97,6 +98,9 @@ export default class AddNoteForm extends React.Component {
                     <option>tag2</option>
                     <option>tag3</option>
                 </select>
+
+                {/* testing before deleting the placeholder tags above */}
+                <TagSelector tagList={this.props.tagList} />
 
                 {/* shows <AddTagForm /> */}
                 <button type='button' onClick={() => {

@@ -24,18 +24,35 @@ class App extends React.Component {
   constructor() {
     super();
     // this.state = {readingText: this.getText()};  // TODO 1: readingText is an array of strings each representing paragraphs (currently just a string)
-    this.state = {
-      readingText: 'initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string',
-      notes: [],
-      tags: []
-    };
-
-    // generator for unique IDs (tag IDs distinct from other kinds of IDs because of leading 't')
-    this.tagIdGenerator = infiniteTagIdGenerator();
 
     this.setReadingText = this.setReadingText.bind(this);
     this.appendNote = this.appendNote.bind(this);
     this.handleNewTagData = this.handleNewTagData.bind(this);
+
+    // generator for unique IDs (tag IDs distinct from other kinds of IDs because of leading 't')
+    this.tagIdGenerator = infiniteTagIdGenerator();
+
+    // provide some tags by default
+    const defaultTags = ['highlight', 'footnote', 'inline note', 'hover note'];
+    let defaultTagObjectArray = new Array(defaultTags.length);
+    for (const tagText of defaultTags) {
+      
+      let newTag = {
+        text: tagText,
+        notes: [],
+        id: this.tagIdGenerator.next().value
+      };
+      
+      defaultTagObjectArray.push(newTag);
+    }
+
+    this.state = {
+      readingText: 'initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string',
+      notes: [],
+      tags: defaultTagObjectArray
+    };
+
+    console.log('default tags working? ', this.state.tags);
   }
 
   setReadingText(newText) {
@@ -47,7 +64,6 @@ class App extends React.Component {
     // it's possible to add a new tag with no note
     console.log('***handleNewTagData called');
 
-    console.log('adding tag ', tagText, ' to app state array');
     const tagId = this.tagIdGenerator.next().value;
     
     console.log('    this new tag has ID ', tagId);
@@ -62,7 +78,9 @@ class App extends React.Component {
       };
 
       // append the new Tag object to state array
+      console.log('adding tag ', tagText, 'with id', tagId, ' to app state');
       const newTagArray = state.tags.concat([newTag]);
+      console.log('   ...so the updated tag array is ', newTagArray);
       return {tags: newTagArray};
     });  
   }
@@ -94,7 +112,7 @@ class App extends React.Component {
       <div className="App">
         <div className="readingText">{paragraphs}</div>
         <NoteDisplayUI />
-        <AddNoteForm userTags={this.state.tags} submitNewNote={this.appendNote} submitNewTag={this.handleNewTagData} />
+        <AddNoteForm userTags={this.state.tags} tagList={this.state.tags} submitNewNote={this.appendNote} submitNewTag={this.handleNewTagData} />
         <AddReadingTextForm submitNewReadingText={this.setReadingText} />
       </div>
     );  
