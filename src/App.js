@@ -47,53 +47,57 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {/* -- NavBar component -- */}
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="#home">Leet Annotation</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto"></Nav>
-            <Nav>
-              <Nav.Link eventKey={2} href="#memes">
-                Team Education Sensation
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+        <div className="inner">
+          {/* -- NavBar component -- */}
+          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand href="#home">Leet Annotation</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto"></Nav>
+              <Nav>
+                <Nav.Link eventKey={2} href="#memes">
+                  Team Education Sensation
+                </Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
 
-        {/* -- Jumbotron - Header Code --  */}
-        <Jumbotron fluid>
-          <Container>
-            <h1>Leet Annotation</h1>
-            <p>
-              This is a modified jumbotron that occupies the entire horizontal
-              space of its parent.
-            </p>
-          </Container>
-        </Jumbotron>
+          {/* -- Jumbotron - Header Code --  */}
+          <Jumbotron className="jumbo">
+            <h1>Welcome to Leet Annotation!</h1>
+            <h5 className="jumbo-text">
+              A new interactive annotating web app for students of all ages.
+              <br />
+              Ever have to painstakingly annotate an article, textbook, or
+              novel? Well this is the tool for you! Annotate and create
+              user-specific notes which can be viewed inline or as a popup.
+              <br />
+            </h5>
+          </Jumbotron>
 
-        {/* -- Text Container -- */}
-        <div className="readingText">{paragraphs}</div>
+          {/* -- Text Container -- */}
+          <div className="readingText">{paragraphs}</div>
 
-        <AddReadingTextForm submitNewReadingText={this.setReadingText} />
+          <AddReadingTextForm submitNewReadingText={this.setReadingText} />
 
-        {/* -- Footer, show New Note, Show and Hide Notes, etc. -- */}
-        <div className="fixed-bottom position-sticky">
-          <Accordion className="accordian-contents">
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                  Click me to Show/Hide Notes for a tag or add a New Note!
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <NoteDisplayUI />
-                  <AddNoteForm />
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
+          {/* -- Footer, show New Note, Show and Hide Notes, etc. -- */}
+          <div className="fixed-bottom position-sticky">
+            <Accordion className="accordian-contents">
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                    Click me to Show/Hide Notes for a tag or add a New Note!
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    <NoteDisplayUI />
+                    <AddNoteForm />
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          </div>
         </div>
       </div>
     );

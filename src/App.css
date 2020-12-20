@@ -13,6 +13,19 @@
   margin-bottom: 10px;
 }
 
+.inner {
+  width: 75%;
+  margin: auto;
+}
+
+.jumbo {
+}
+
+.jumbo-text {
+  width: 50%;
+  margin: auto;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

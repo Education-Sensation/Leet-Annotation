@@ -14,7 +14,9 @@ export default class addReadingTextForm extends React.Component {
       "submitting this (hopefully new) reading text to App: ",
       this.state.newParagraphs
     );
-    this.props.submitNewReadingText(this.state.newParagraphs); // pass textarea value (as recorded in state)
+    if (this.state.newParagraphs != "") {
+      this.props.submitNewReadingText(this.state.newParagraphs); // pass textarea value (as recorded in state)
+    }
   }
 
   handleTextChange(event) {
@@ -37,7 +39,6 @@ export default class addReadingTextForm extends React.Component {
             cols="100"
             rows="10"
             onChange={this.handleTextChange}
-            //value={[]}
           ></textarea>
           {/* replaces text in ReadingText component */}
           <br />
