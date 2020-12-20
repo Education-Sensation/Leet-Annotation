@@ -12,6 +12,9 @@ import Collapse from "react-bootstrap/Collapse";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 class App extends React.Component {
   constructor() {
@@ -44,6 +47,20 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        {/* -- NavBar component -- */}
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Navbar.Brand href="#home">Leet Annotation</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto"></Nav>
+            <Nav>
+              <Nav.Link eventKey={2} href="#memes">
+                Team Education Sensation
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+
         {/* -- Jumbotron - Header Code --  */}
         <Jumbotron fluid>
           <Container>
@@ -61,21 +78,23 @@ class App extends React.Component {
         <AddReadingTextForm submitNewReadingText={this.setReadingText} />
 
         {/* -- Footer, show New Note, Show and Hide Notes, etc. -- */}
-        <Accordion>
-          <Card>
-            <Card.Header>
-              <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                Click me to Show/Hide notes for a tag or add a New Note!
-              </Accordion.Toggle>
-            </Card.Header>
-            <Accordion.Collapse eventKey="0">
-              <Card.Body>
-                <NoteDisplayUI />
-                <AddNoteForm />
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        </Accordion>
+        <div className="fixed-bottom position-sticky">
+          <Accordion className="accordian-contents">
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                  Click me to Show/Hide Notes for a tag or add a New Note!
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <NoteDisplayUI />
+                  <AddNoteForm />
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+        </div>
       </div>
     );
   }

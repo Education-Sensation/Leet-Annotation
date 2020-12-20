@@ -1,10 +1,16 @@
 .App {
   text-align: center;
+  font-family: "Baskervville", "Playfair Display", Georgia, "Times New Roman",
+    serif;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.newTextButton {
+  margin-bottom: 10px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -28,6 +34,10 @@
   color: #61dafb;
 }
 
+/* .accordian-contents {
+  position: fixed;
+} */
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +46,5 @@
     transform: rotate(360deg);
   }
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Baskervville&display=swap");
