@@ -14,16 +14,34 @@
 }
 
 .inner {
-  width: 75%;
   margin: auto;
 }
 
+.navbar1 {
+  background-color: rebeccapurple !important;
+  color: white;
+}
+
+.navitem {
+  color: black;
+}
+
 .jumbo {
+  background: rebeccapurple !important;
+  color: white;
 }
 
 .jumbo-text {
   width: 50%;
   margin: auto;
+}
+
+.subcontainer {
+  background: white;
+}
+
+.show-hide {
+  margin-bottom: 10px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -46,10 +64,6 @@
 .App-link {
   color: #61dafb;
 }
-
-/* .accordian-contents {
-  position: fixed;
-} */
 
 @keyframes App-logo-spin {
   from {

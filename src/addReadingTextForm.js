@@ -32,7 +32,7 @@ export default class addReadingTextForm extends React.Component {
   render() {
     return (
       <div className="newReadingStyle">
-        <h2>New Reading Text</h2>
+        <h3>Enter new text to be annotated:</h3>
         <form>
           <textarea
             name="newReadingText"

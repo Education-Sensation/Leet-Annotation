@@ -49,16 +49,18 @@ class App extends React.Component {
       <div className="App">
         <div className="inner">
           {/* -- NavBar component -- */}
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Navbar
+            className="navbar1"
+            collapseOnSelect
+            expand="lg"
+            bg="light"
+            variant="light"
+          >
             <Navbar.Brand href="#home">Leet Annotation</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto"></Nav>
-              <Nav>
-                <Nav.Link eventKey={2} href="#memes">
-                  Team Education Sensation
-                </Nav.Link>
-              </Nav>
+              <Nav className="navitem">Team Education Sensation</Nav>
             </Navbar.Collapse>
           </Navbar>
 
@@ -75,13 +77,14 @@ class App extends React.Component {
             </h5>
           </Jumbotron>
 
-          {/* -- Text Container -- */}
-          <div className="readingText">{paragraphs}</div>
+          <div className="subcontainer">
+            {/* -- Text Container -- */}
+            <div className="readingText">{paragraphs}</div>
 
-          <AddReadingTextForm submitNewReadingText={this.setReadingText} />
-
+            <AddReadingTextForm submitNewReadingText={this.setReadingText} />
+          </div>
           {/* -- Footer, show New Note, Show and Hide Notes, etc. -- */}
-          <div className="fixed-bottom position-sticky">
+          <div className="fixed-bottom position-sticky" id="footer">
             <Accordion className="accordian-contents">
               <Card>
                 <Card.Header>
