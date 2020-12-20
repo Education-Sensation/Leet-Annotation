@@ -31,10 +31,11 @@ class App extends React.Component {
 
     console.log('adding note ', newNote, ' to ', this.state.notes);
 
-    // this.setState({notes: newNote});  // works but isn't our desired feature
-
     // uses arrow function version of setState() to access previous state
-    this.setState((state, props) => {notes: state.notes.push(newNote)});  // TODO: this line will append note rather than replace
+    this.setState((state, props) => {
+      const newNoteArray = state.notes.concat([newNote]);
+      return {notes: newNoteArray};
+    });
   }
 
   getText = async () => {
