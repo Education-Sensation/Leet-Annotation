@@ -90,19 +90,6 @@ export default class AddNoteForm extends React.Component {
               onChange={this.handleKeyPhraseChange}
             ></input>
   
-            {/* TODO: remove this after using props */}
-            <label htmlFor="tags-field">tags</label>
-            <select
-              multiple={true}
-              name="tags-field"
-              id="tags-field"
-              onChange={this.handleTagsChange}
-            >
-              <option>tag1</option>
-              <option>tag2</option>
-              <option>tag3</option>
-            </select>
-  
             {/* testing before deleting the placeholder tags above */}
             <TagSelector tagList={this.props.tagList} onTagSelect={this.handleTagsChange} />
   
