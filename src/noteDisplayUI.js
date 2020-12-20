@@ -3,7 +3,7 @@ import React from "react";
 const NoteDisplayUI = () => {
   return (
     <div className="noteDisplay">
-      <h1>New Note</h1>
+      <h3>Select a keyword and see the notes associated</h3>
       <form>
         {/* add onClick function that will replace text component */}
         <button className="noteDisplayButton" type="submit">
