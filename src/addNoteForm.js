@@ -103,6 +103,18 @@ export default class AddNoteForm extends React.Component {
             rows="5"
             onChange={this.handleNoteChange}
           ></textarea>
+
+          <br />
+          {/* add this note to the App component’s dictionary */}
+          <Button
+            variant="outline-success"
+            onClick={this.submitNewNote}
+            type="button"
+            className="enterNewNote"
+          >
+            Enter
+          </Button>
+
           <br />
 
           <label htmlFor="keyphrase-field">

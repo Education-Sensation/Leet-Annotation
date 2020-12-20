@@ -47,6 +47,10 @@
   background: white;
 }
 
+.enterNewNote {
+  margin-bottom: 10px;
+}
+
 .show-hide {
   margin-bottom: 10px;
 }
