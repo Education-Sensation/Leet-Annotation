@@ -6,7 +6,9 @@ import NoteDisplayUI from "./noteDisplayUI";
 
 function* infiniteTagIdGenerator() {
   let int = 0;
-  yield 't' + toString(int++);
+  while (true) {
+    yield 't' + (++int).toString();
+  }
 }
 
 async function getText() {
@@ -44,8 +46,11 @@ class App extends React.Component {
     // append a Tag object to state array for each tag in newTagList. If it's not a new tag, update the existing tag object with the new note
     // it's possible to add a new tag with no note
     newTagList.forEach((tag) => {
+      console.log('adding tag ', tag, ' to app state array');
       const tagId = this.tagIdGenerator.next();
       
+      console.log('---this new tag has ID ', tagId);
+
       this.setState((state, props) => {
         // make a new Tag object
         const newTag = {

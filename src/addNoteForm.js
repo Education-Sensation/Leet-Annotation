@@ -36,10 +36,10 @@ export default class AddNoteForm extends React.Component {
     handleTagsChange(event) {
         // const newTagArray = this.state.tags.concat([event.target.value]);
 
-        this.setState(() => {
-            const newTagArray = this.state.formData.tags.concat(['test1', 'test2']);  // temp
+        this.setState((state, props) => {
+            const newTagArray = state.formData.tags.concat(['test1', 'test2']);  // temp
 
-            return {formData: {...this.state.formData, tags: newTagArray}};
+            return {formData: {...state.formData, tags: newTagArray}};
         });
     }
 
@@ -76,7 +76,7 @@ export default class AddNoteForm extends React.Component {
 
                 {/* TODO: change this to use props */}
                 <label htmlFor="tags-field">tags</label>
-                <select multiple='true' name="tags-field" id="tags-field" onChange={this.handleTagsChange}>
+                <select multiple={true} name="tags-field" id="tags-field" onChange={this.handleTagsChange}>
                     <option>tag1</option>
                     <option>tag2</option>
                     <option>tag3</option>
