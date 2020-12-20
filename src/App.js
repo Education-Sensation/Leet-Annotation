@@ -9,12 +9,25 @@ class App extends React.Component {
   constructor() {
     super();
     // this.state = {readingText: this.getText()};  // TODO 1: readingText is an array of strings each representing paragraphs (currently just a string)
-    this.state = {readingText: 'initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string'};
+    this.state = {
+      readingText: 'initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string',
+      notes: []
+    };
     this.setReadingText = this.setReadingText.bind(this);
+    this.appendNote = this.appendNote.bind(this);
   }
 
   setReadingText(newText) {
     this.setState({readingText: newText});
+  }
+
+  appendNote(newNoteData) {
+    // uses arrow function version of setState() to access previous state
+    console.log('adding note ', newNoteData.note, ', keyphrase ', newNoteData.keyPhrase, ', tags ', newNoteData.tags, ' to ', this.state.notes);
+    // this.setState((state, props) => {notes: state.notes.append(newNote)});  // TODO: this line will append note rather than replace
+    this.setState({notes: newNoteData.note});
+
+    // TODO: make a new Note object with formData fields as attributes
   }
 
   getText = async () => {
@@ -35,8 +48,8 @@ class App extends React.Component {
       <div className="App">
         <div className="readingText">{paragraphs}</div>
         <NoteDisplayUI />
+        <AddNoteForm submitNewNote={this.appendNote} />
         <AddReadingTextForm submitNewReadingText={this.setReadingText} />
-        <AddNoteForm />
       </div>
     );  
   }
