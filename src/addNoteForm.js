@@ -40,6 +40,8 @@ export default class AddNoteForm extends React.Component {
     submitNewNote() {
         console.log('submitting this formData to App... ', this.state.formData);
         this.props.submitNewNote(this.state.formData);
+        // TODO: is there an easy way to clear fields here?
+        alert('Note Added!');
     }
 
     render() {
