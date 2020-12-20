@@ -9,7 +9,7 @@ export default class AddNoteForm extends React.Component {
             formData: {
                 note: '',
                 keyPhrase: '',
-                tags: '',
+                tags: [],
             }
         };
 
@@ -34,7 +34,13 @@ export default class AddNoteForm extends React.Component {
     }
 
     handleTagsChange(event) {
-        this.setState({formData: {...this.state.formData, tags: event.target.value}})
+        // const newTagArray = this.state.tags.concat([event.target.value]);
+
+        this.setState(() => {
+            const newTagArray = this.state.formData.tags.concat(['test1', 'test2']);  // temp
+
+            return {formData: {...this.state.formData, tags: newTagArray}};
+        });
     }
 
     submitNewNote() {
@@ -68,8 +74,13 @@ export default class AddNoteForm extends React.Component {
                 <label htmlFor="keyphrase-field">key phrase</label>
                 <input name="keyphrase-field" id="keyphrase-field" type="text" onChange={this.handleKeyPhraseChange}></input>
 
+                {/* TODO: change this to use props */}
                 <label htmlFor="tags-field">tags</label>
-                <input name="tags-field" id="tags-field" type="text" onChange={this.handleTagsChange}></input>
+                <select multiple='true' name="tags-field" id="tags-field" onChange={this.handleTagsChange}>
+                    <option>tag1</option>
+                    <option>tag2</option>
+                    <option>tag3</option>
+                </select>
 
                 {/* shows <AddTagForm /> */}
                 <button type='button' onClick={() => {
