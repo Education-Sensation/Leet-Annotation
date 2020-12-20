@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 
 export default class AddTagForm extends React.Component {
   constructor(props) {
@@ -12,17 +13,29 @@ export default class AddTagForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="newTag">
         <h4>New Tag</h4>
         <form>
           <label htmlFor="new-tag"></label>
-          <input id="new-tag" name="new-tag" type="text"></input>
-          <button type="button">Enter</button>
+          <input
+            className="tag-input"
+            id="new-tag"
+            name="new-tag"
+            type="text"
+          ></input>
+
+          <Button className="enterTag" variant="outline-success" type="button">
+            Enter
+          </Button>
           {""}
           {/* updates <App /> state with the input's value */}
-          <button type="button" onClick={this.handleClick}>
+          <Button
+            className="cancelTag"
+            variant="danger"
+            onClick={this.handleClick}
+          >
             Cancel
-          </button>
+          </Button>
           {""}
         </form>
         {/* hides form */}

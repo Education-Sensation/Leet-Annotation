@@ -44,6 +44,39 @@
   margin-bottom: 10px;
 }
 
+.keyphrase {
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 40px;
+}
+
+.newnote {
+  margin-bottom: 10px;
+}
+
+.tags {
+  margin-left: 5px;
+  margin-right: 10px;
+  height: 40px;
+}
+
+.createNewTag {
+  margin-right: 5px;
+}
+
+.newTag {
+  margin-top: 20px;
+}
+
+.tag-input {
+  height: 40px;
+}
+
+.enterTag {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

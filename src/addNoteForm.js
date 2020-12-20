@@ -28,34 +28,53 @@ export default class AddNoteForm extends React.Component {
         <h4>Add a New Note</h4>
         <form>
           <label htmlFor="note-field"></label>
+
           <textarea
+            className="newnote"
             name="note-field"
             id="note-field"
             placeholder="have any thoughts to write?"
+            cols="30"
+            rows="5"
           ></textarea>
+          <br />
 
-          <label htmlFor="keyphrase-field">key phrase</label>
+          <label htmlFor="keyphrase-field">
+            <strong>Key Phrase:</strong>{" "}
+          </label>
           <input
+            className="keyphrase"
             name="keyphrase-field"
             id="keyphrase-field"
             type="text"
           ></input>
 
-          <label htmlFor="tags-field">tags</label>
-          <input name="tags-field" id="tags-field" type="text"></input>
+          <label htmlFor="tags-field">
+            <strong>Tags: </strong>{" "}
+          </label>
+          <input
+            className="tags"
+            name="tags-field"
+            id="tags-field"
+            type="text"
+          ></input>
 
           {/* shows <AddTagForm /> */}
-          <button
+          <Button
+            className="createNewTag"
+            variant="outline-secondary"
             type="button"
             onClick={() => {
               this.handleTagFormDisplay(false);
             }}
           >
-            create new tag &#12297;
-          </button>
+            Create a new tag &#12297;
+          </Button>
 
           {/* add this note to the App component’s dictionary */}
-          <button type="button">Enter</button>
+          <Button variant="outline-success" type="button">
+            Enter
+          </Button>
         </form>
 
         {tagForm}
