@@ -90,20 +90,7 @@ export default class AddNoteForm extends React.Component {
               onChange={this.handleKeyPhraseChange}
             ></input>
   
-            {/* testing before deleting the placeholder tags above */}
             <TagSelector tagList={this.props.tagList} onTagSelect={this.handleTagsChange} />
-  
-            { /* TODO: use this styling on the above <TagSelector> and then delete this input -- new tags are added with the AddTagForm and selected with the TagSelector */ }
-            <label htmlFor="tags-field">
-              <strong>Tags: </strong>{" "}
-            </label>
-            <input
-              className="tags"
-              name="tags-field"
-              id="tags-field"
-              type="text"
-              value="delete me"
-            ></input>
   
             {/* shows <AddTagForm /> */}
             <Button
