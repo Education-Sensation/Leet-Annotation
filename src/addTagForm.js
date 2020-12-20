@@ -13,7 +13,7 @@ export default class AddTagForm extends React.Component {
 
     handleSubmit() {
         console.log('submitting this tag data: ', this.state.newTag);
-        this.props.submitForm([this.state.newTag]);
+        this.props.submitForm(this.state.newTag);
     }
 
     handleInputChange(event) {
