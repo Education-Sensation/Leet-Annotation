@@ -2,6 +2,8 @@ import React from "react";
 import AddTagForm from "./addTagForm";
 import TagSelector from "./tagSelector";
 import Button from "react-bootstrap/Button";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 
 // Return an array of the selected opion values
 // select is an HTML select element
@@ -101,7 +103,19 @@ export default class AddNoteForm extends React.Component {
             rows="5"
             onChange={this.handleNoteChange}
           ></textarea>
+
           <br />
+          {/* add this note to the App component’s dictionary */}
+          <Button
+            variant="outline-success"
+            onClick={this.submitNewNote}
+            type="button"
+            className="enterNewNote"
+          >
+            Enter
+          </Button>
+
+          <hr />
 
           <label htmlFor="keyphrase-field">
             <strong>Key Phrase:</strong>{" "}
@@ -115,30 +129,24 @@ export default class AddNoteForm extends React.Component {
           ></input>
 
           {/* TODO: change this to use props */}
-          <label htmlFor="tags-field">tags</label>
+          {/* <label htmlFor="tags-field">
+            <strong>Tags: </strong>
+          </label> */}
           <select
-            multiple={true}
+            className="selector tags"
+            //multiple={true}
             name="tags-field"
             id="tags-field"
             onChange={this.handleTagsChange}
           >
-            <option>tag1</option>
-            <option>tag2</option>
-            <option>tag3</option>
+            <option value="">Please choose a tag</option>
+            <option>Tag 1</option>
+            <option>Tag 2</option>
+            <option>Tag 3</option>
           </select>
 
           {/* testing before deleting the placeholder tags above */}
           <TagSelector tagList={this.props.tagList} />
-
-          <label htmlFor="tags-field">
-            <strong>Tags: </strong>{" "}
-          </label>
-          <input
-            className="tags"
-            name="tags-field"
-            id="tags-field"
-            type="text"
-          ></input>
 
           {/* shows <AddTagForm /> */}
           <Button
@@ -153,13 +161,13 @@ export default class AddNoteForm extends React.Component {
           </Button>
 
           {/* add this note to the App component’s dictionary */}
-          <Button
+          {/* <Button
             variant="outline-success"
             onClick={this.submitNewNote}
             type="button"
           >
             Enter
-          </Button>
+          </Button> */}
         </form>
         {tagForm}
       </div>
