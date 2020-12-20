@@ -1,6 +1,7 @@
 import React from "react";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import Multiselect from "react-bootstrap-multiselect";
 
 export default function TagSelector(props) {
   console.log(props.tagList); // array of 4 empty objects followed by the correct 4 objects
@@ -19,16 +20,18 @@ export default function TagSelector(props) {
   });
 
   return (
-    <span>
+    <DropdownButton
+      id="dropdown-item-button"
+      title="Select one or multiple tags"
+    >
       <select
-        className="selector tags"
-        //multiple={true}
+        className="droptags"
+        multiple={true}
         name="tags-field"
         id="tags-field"
       >
-        <option value="">Please choose an option</option>
         {options}
       </select>
-    </span>
+    </DropdownButton>
   );
 }
