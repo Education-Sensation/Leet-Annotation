@@ -99,7 +99,13 @@ export default class AddNoteForm extends React.Component {
                     <option>tag3</option>
                 </select>
 
-                {/* testing before deleting the placeholder tags above */}
+                {/* testing before deleting the placeholder tags above 
+                
+                
+                TODO: !!!!!!!!!!!!!!! below component needs callback in this AddNoteForm to track which options are selected
+                
+                
+                */}
                 <TagSelector tagList={this.props.tagList} />
 
                 {/* shows <AddTagForm /> */}
