@@ -72,7 +72,7 @@ export default class AddNoteForm extends React.Component {
         let tagForm = emptySpan;
 
         if (!this.state.tagFormIsHidden) {
-            tagForm = <AddTagForm hideForm={this.handleTagFormDisplay} />;
+            tagForm = <AddTagForm hideForm={this.handleTagFormDisplay} submitForm={this.props.submitNewTag} />;
         }
 
         return (

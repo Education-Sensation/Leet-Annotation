@@ -42,35 +42,32 @@ class App extends React.Component {
     this.setState({readingText: newText});
   }
 
-  handleNewTagData(newTagList, newNote=null) {
-    // append a Tag object to state array for each tag in newTagList. If it's not a new tag, update the existing tag object with the new note
+  handleNewTagData(tagText) {
+    // append a Tag object to state array for each tag in newTagList. If it's not a new tag, return null
     // it's possible to add a new tag with no note
-    console.log('***handleNewTagData called. Should be once per list of tags');
+    console.log('***handleNewTagData called');
 
-    newTagList.forEach((tagText) => {
-      console.log('adding tag ', tagText, ' to app state array');
-      const tagId = this.tagIdGenerator.next().value;
-      
-      console.log('    this new tag has ID ', tagId);
-      console.log('    this new tag has text ', tagText);
-      console.log('    if it has a note, it is ', newNote);
+    console.log('adding tag ', tagText, ' to app state array');
+    const tagId = this.tagIdGenerator.next().value;
+    
+    console.log('    this new tag has ID ', tagId);
+    console.log('    this new tag has text ', tagText);
 
-      this.setState((state, props) => {
-        // make a new Tag object
-        const newTag = {
-          text: tagText,
-          note: newNote,
-          id: tagId
-        };
+    this.setState((state, props) => {
+      // make a new Tag object
+      const newTag = {
+        text: tagText,
+        notes: [],
+        id: tagId
+      };
 
-        // append the new Tag object to state array
-        const newTagArray = state.tags.concat([newTag]);
-        return {tags: newTagArray};
-      });  
-    });
+      // append the new Tag object to state array
+      const newTagArray = state.tags.concat([newTag]);
+      return {tags: newTagArray};
+    });  
   }
 
-  appendNote(newNoteData) {  //TODO: should be called "handle" new note data and call appendNote and appendTag
+  appendNote(newNoteData) {  //TODO: should be called "handle" new note data and call appendNote and linkNoteToTag
     // make a new Note object with formData fields as attributes
     const newNote = {
       text: newNoteData.note,
@@ -85,9 +82,6 @@ class App extends React.Component {
       const newNoteArray = state.notes.concat([newNote]);
       return {notes: newNoteArray};
     });
-
-    // save new tag data in state
-    this.handleNewTagData(newNoteData.tags, newNoteData.note);
   }
 
   render() {
@@ -100,7 +94,7 @@ class App extends React.Component {
       <div className="App">
         <div className="readingText">{paragraphs}</div>
         <NoteDisplayUI />
-        <AddNoteForm submitNewNote={this.appendNote} />
+        <AddNoteForm userTags={this.state.tags} submitNewNote={this.appendNote} submitNewTag={this.handleNewTagData} />
         <AddReadingTextForm submitNewReadingText={this.setReadingText} />
       </div>
     );  
