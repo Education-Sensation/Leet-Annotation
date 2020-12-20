@@ -26,7 +26,6 @@ export default class AddNoteForm extends React.Component {
     }
 
     handleNoteChange(event) {
-        console.log('setting this text to state: ', event.target.value);
         this.setState({formData: {...this.state.formData, note: event.target.value}})
     }
 

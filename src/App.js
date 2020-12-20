@@ -22,20 +22,28 @@ class App extends React.Component {
   }
 
   appendNote(newNoteData) {
-    // uses arrow function version of setState() to access previous state
-    console.log('adding note ', newNoteData.note, ', keyphrase ', newNoteData.keyPhrase, ', tags ', newNoteData.tags, ' to ', this.state.notes);
-    // this.setState((state, props) => {notes: state.notes.append(newNote)});  // TODO: this line will append note rather than replace
-    this.setState({notes: newNoteData.note});
+    // make a new Note object with formData fields as attributes
+    const newNote = {
+      text: newNoteData.note,
+      keyphrase: newNoteData.keyPhrase,
+      tags: newNoteData.tags
+    };
 
-    // TODO: make a new Note object with formData fields as attributes
+    console.log('adding note ', newNote, ' to ', this.state.notes);
+
+    // this.setState({notes: newNote});  // works but isn't our desired feature
+
+    // uses arrow function version of setState() to access previous state
+    this.setState((state, props) => {notes: state.notes.push(newNote)});  // TODO: this line will append note rather than replace
   }
 
   getText = async () => {
+    // returns an array of strings containing meaty lorem ipsum
     const response = await fetch(
       "https://baconipsum.com/api/?type=all-meat&paras=3&start-with-lorem=1"
     );
-    const data = await response.json();  // TODO 1: please assign an array to this data varaible, so setReadingText() in the next line sets this.readingText to an array of strings. See below TODO
-    this.setReadingText(data);
+    const data = await response.json();  // TODO 1: needs to return an array of strings. See below TODO
+    return data;
   };
 
   render() {
