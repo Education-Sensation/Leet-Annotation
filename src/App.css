@@ -9,6 +9,12 @@
   pointer-events: none;
 }
 
+.readingText {
+  width: 72%;
+  margin: auto;
+  text-align: justify;
+}
+
 .newTextButton {
   margin-bottom: 10px;
   width: 100px;
