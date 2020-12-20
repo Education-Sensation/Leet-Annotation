@@ -1,6 +1,23 @@
 import React from "react";
 import AddTagForm from "./addTagForm";
 
+// Return an array of the selected opion values
+// select is an HTML select element
+function getSelectValues(selectElement) {
+    var result = [];
+    var options = selectElement && selectElement.options;
+    var option;
+  
+    for (var i=0, iLen=options.length; i<iLen; i++) {
+      option = options[i];
+  
+      if (option.selected) {
+        result.push(option.value || option.text);
+      }
+    }
+    return result;
+  }
+
 export default class AddNoteForm extends React.Component {
     constructor(props) {
         super(props);
@@ -34,11 +51,9 @@ export default class AddNoteForm extends React.Component {
     }
 
     handleTagsChange(event) {
-        // const newTagArray = this.state.tags.concat([event.target.value]);
+        const newTagArray = getSelectValues(event.target);
 
         this.setState((state, props) => {
-            const newTagArray = state.formData.tags.concat(['test1', 'test2']);  // temp
-
             console.log('replacing ', state.formData.tags, ' with ', newTagArray);
             return {formData: {...state.formData, tags: newTagArray}};
         });
