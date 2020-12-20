@@ -32,19 +32,27 @@ class App extends React.Component {
     // generator for unique IDs (tag IDs distinct from other kinds of IDs because of leading 't')
     this.tagIdGenerator = infiniteTagIdGenerator();
 
+    // provide some tags by default
+    const defaultTags = ['highlight', 'footnote', 'inline note', 'hover note'];
+    let defaultTagObjectArray = new Array(defaultTags.length);
+    for (const tagText of defaultTags) {
+      
+      let newTag = {
+        text: tagText,
+        notes: [],
+        id: this.tagIdGenerator.next().value
+      };
+      
+      defaultTagObjectArray.push(newTag);
+    }
+
     this.state = {
       readingText: 'initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string',
       notes: [],
-      tags: []
+      tags: defaultTagObjectArray
     };
 
-    // provide some tags by default
-    const defaultTags = ['highlight', 'footnote', 'inline note', 'hover note'];
-    for (const tagText of defaultTags) {
-      this.handleNewTagData(tagText);
-    }
-
-    console.log('default tags working? ', this.state.tags[0]);
+    console.log('default tags working? ', this.state.tags);
   }
 
   setReadingText(newText) {

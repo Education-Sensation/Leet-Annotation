@@ -1,9 +1,9 @@
 import React from "react";
 
 export default function TagSelector(props) {
-    console.log(props.tagList); // empty array
+    console.log(props.tagList); // array of 4 empty objects followed by the correct 4 objects
 
-    let options;
+    let options = new Array(props.tagList.length);
     
     // populate array of option tags
     props.tagList.forEach((tagObject) => {
