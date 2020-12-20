@@ -115,7 +115,7 @@ export default class AddNoteForm extends React.Component {
             Enter
           </Button>
 
-          <br />
+          <hr />
 
           <label htmlFor="keyphrase-field">
             <strong>Key Phrase:</strong>{" "}
