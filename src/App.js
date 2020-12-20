@@ -86,7 +86,7 @@ class App extends React.Component {
           {/* -- Footer, show New Note, Show and Hide Notes, etc. -- */}
           <div className="fixed-bottom position-sticky" id="footer">
             <Accordion className="accordian-contents">
-              <Card>
+              <Card className="card">
                 <Card.Header>
                   <Accordion.Toggle as={Button} variant="link" eventKey="0">
                     Click me to Show/Hide Notes for a tag or add a New Note!

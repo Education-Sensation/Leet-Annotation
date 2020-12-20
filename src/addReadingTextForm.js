@@ -43,6 +43,7 @@ export default class addReadingTextForm extends React.Component {
           {/* replaces text in ReadingText component */}
           <br />
           <Button
+            className="addNewText"
             variant="success"
             onClick={this.handleAddClick}
             className="newTextButton"

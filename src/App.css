@@ -11,6 +11,7 @@
 
 .newTextButton {
   margin-bottom: 10px;
+  width: 100px;
 }
 
 .inner {
@@ -27,7 +28,8 @@
 }
 
 .jumbo {
-  background: rebeccapurple !important;
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* background: rebeccapurple !important; */
   color: white;
 }
 
@@ -56,7 +58,7 @@
 
 .tags {
   margin-left: 5px;
-  margin-right: 10px;
+  margin-right: 5px;
   height: 40px;
 }
 
