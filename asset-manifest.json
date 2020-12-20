@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Leet-Annotation/static/css/main.73efbf52.chunk.css",
-    "main.js": "/Leet-Annotation/static/js/main.6164c946.chunk.js",
-    "main.js.map": "/Leet-Annotation/static/js/main.6164c946.chunk.js.map",
+    "main.js": "/Leet-Annotation/static/js/main.a4aeb07e.chunk.js",
+    "main.js.map": "/Leet-Annotation/static/js/main.a4aeb07e.chunk.js.map",
     "runtime-main.js": "/Leet-Annotation/static/js/runtime-main.6d45b6d9.js",
     "runtime-main.js.map": "/Leet-Annotation/static/js/runtime-main.6d45b6d9.js.map",
     "static/js/2.8045f4de.chunk.js": "/Leet-Annotation/static/js/2.8045f4de.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.6d45b6d9.js",
     "static/js/2.8045f4de.chunk.js",
     "static/css/main.73efbf52.chunk.css",
-    "static/js/main.6164c946.chunk.js"
+    "static/js/main.a4aeb07e.chunk.js"
   ]
 }
