@@ -19,6 +19,7 @@ export default class AddTagForm extends React.Component {
 
   handleInputChange(event) {
     this.setState({ newTag: event.target.value });
+    console.log('updating new tag text to ', event.target.value);
   }
 
   handleCancel() {
@@ -36,6 +37,7 @@ export default class AddTagForm extends React.Component {
             id="new-tag"
             name="new-tag"
             type="text"
+            onChange={this.handleInputChange}
           ></input>
 
           <Button
