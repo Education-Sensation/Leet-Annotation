@@ -49,7 +49,7 @@ class App extends React.Component {
 
     newTagList.forEach((tagText) => {
       console.log('adding tag ', tagText, ' to app state array');
-      const tagId = this.tagIdGenerator.next();
+      const tagId = this.tagIdGenerator.next().value;
       
       console.log('    this new tag has ID ', tagId);
       console.log('    this new tag has text ', tagText);
