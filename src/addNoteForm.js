@@ -106,7 +106,7 @@ export default class AddNoteForm extends React.Component {
                 
                 
                 */}
-                <TagSelector tagList={this.props.tagList} />
+                <TagSelector tagList={this.props.tagList} onSelect={this.handleTagsChange} />
 
                 {/* shows <AddTagForm /> */}
                 <button type='button' onClick={() => {
