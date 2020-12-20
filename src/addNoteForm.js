@@ -1,6 +1,7 @@
 import React from "react";
 import AddTagForm from "./addTagForm";
 import TagSelector from "./tagSelector";
+import Button from "react-bootstrap/Button";
 
 // Return an array of the selected opion values
 // select is an HTML select element
