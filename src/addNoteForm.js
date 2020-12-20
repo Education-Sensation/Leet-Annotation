@@ -132,21 +132,13 @@ export default class AddNoteForm extends React.Component {
           {/* <label htmlFor="tags-field">
             <strong>Tags: </strong>
           </label> */}
-          <select
-            className="selector tags"
-            //multiple={true}
-            name="tags-field"
-            id="tags-field"
-            onChange={this.handleTagsChange}
-          >
-            <option value="">Please choose a tag</option>
-            <option>Tag 1</option>
-            <option>Tag 2</option>
-            <option>Tag 3</option>
-          </select>
 
           {/* testing before deleting the placeholder tags above */}
-          <TagSelector tagList={this.props.tagList} />
+
+          <TagSelector
+            tagList={this.props.tagList}
+            onTagSelect={this.handleTagsChange}
+          />
 
           {/* shows <AddTagForm /> */}
           <Button

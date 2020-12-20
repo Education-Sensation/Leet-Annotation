@@ -62,11 +62,16 @@
 }
 
 .selector {
-  height: 40px;
+  margin-top: 10px;
+}
+
+div.dropdown {
+  display: inline;
+  margin-right: 5px;
 }
 
 #footer {
-  padding-bottom: 250px;
+  padding-bottom: 150px;
 }
 
 .newnote {
