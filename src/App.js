@@ -45,16 +45,20 @@ class App extends React.Component {
   handleNewTagData(newTagList, newNote=null) {
     // append a Tag object to state array for each tag in newTagList. If it's not a new tag, update the existing tag object with the new note
     // it's possible to add a new tag with no note
-    newTagList.forEach((tag) => {
-      console.log('adding tag ', tag, ' to app state array');
+    console.log('***handleNewTagData called. Should be once per list of tags');
+
+    newTagList.forEach((tagText) => {
+      console.log('adding tag ', tagText, ' to app state array');
       const tagId = this.tagIdGenerator.next();
       
-      console.log('---this new tag has ID ', tagId);
+      console.log('    this new tag has ID ', tagId);
+      console.log('    this new tag has text ', tagText);
+      console.log('    if it has a note, it is ', newNote);
 
       this.setState((state, props) => {
         // make a new Tag object
         const newTag = {
-          text: tag.text,
+          text: tagText,
           note: newNote,
           id: tagId
         };

@@ -39,6 +39,7 @@ export default class AddNoteForm extends React.Component {
         this.setState((state, props) => {
             const newTagArray = state.formData.tags.concat(['test1', 'test2']);  // temp
 
+            console.log('replacing ', state.formData.tags, ' with ', newTagArray);
             return {formData: {...state.formData, tags: newTagArray}};
         });
     }
