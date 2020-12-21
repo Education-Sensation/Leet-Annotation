@@ -1,7 +1,6 @@
 import React from "react";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-import Multiselect from "react-bootstrap-multiselect";
 
 
 // Return an array of the selected opion values

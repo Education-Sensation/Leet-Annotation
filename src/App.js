@@ -5,7 +5,6 @@ import AddReadingTextForm from "./addReadingTextForm";
 import NoteDisplayUI from "./noteDisplayUI";
 // Bootstrap modules
 import "bootstrap/dist/css/bootstrap.min.css";
-import Multiselect from "react-bootstrap-multiselect";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 import Collapse from "react-bootstrap/Collapse";
