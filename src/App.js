@@ -39,6 +39,7 @@ class App extends React.Component {
     this.setReadingText = this.setReadingText.bind(this);
     this.appendNote = this.appendNote.bind(this);
     this.handleNewTagData = this.handleNewTagData.bind(this);
+    this.handleDisplayClick = this.handleDisplayClick.bind(this);
 
     // generator for unique IDs (tag IDs distinct from other kinds of IDs because of leading 't')
     this.tagIdGenerator = infiniteTagIdGenerator();
@@ -114,6 +115,10 @@ class App extends React.Component {
     });
   }
 
+  handleDisplayClick() {
+    alert('test!?!');
+  }
+
   render() {
     const paragraphs = <p>{this.state.readingText}</p>; // TODO 1: once this.state.readingText is an array of strings, uncomment the below code to replace this temp line
     // const paragraphs = this.state.readingText.map((item, index) => {
@@ -171,9 +176,9 @@ class App extends React.Component {
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    <NoteDisplayUI />
+                    <NoteDisplayUI tagList={this.state.tags} onDisplayClick={this.handleDisplayClick} />
                     <AddNoteForm
-                      userTags={this.state.tags}
+                      userTags={this.state.tags}  // TODO: remove this?
                       tagList={this.state.tags}
                       submitNewNote={this.appendNote}
                       submitNewTag={this.handleNewTagData}

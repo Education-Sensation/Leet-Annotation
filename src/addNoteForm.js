@@ -5,23 +5,6 @@ import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 
-// Return an array of the selected opion values
-// select is an HTML select element
-function getSelectValues(selectElement) {
-  var result = [];
-  var options = selectElement && selectElement.options;
-  var option;
-
-  for (var i = 0, iLen = options.length; i < iLen; i++) {
-    option = options[i];
-
-    if (option.selected) {
-      result.push(option.value || option.text);
-    }
-  }
-  return result;
-}
-
 export default class AddNoteForm extends React.Component {
   constructor(props) {
     super(props);
@@ -58,12 +41,10 @@ export default class AddNoteForm extends React.Component {
     });
   }
 
-  handleTagsChange(event) {
-    const newTagArray = getSelectValues(event.target);
-
+  handleTagsChange(selectedTagValues) {
     this.setState((state, props) => {
-      console.log("replacing ", state.formData.tags, " with ", newTagArray);
-      return { formData: { ...state.formData, tags: newTagArray } };
+      console.log("replacing ", state.formData.tags, " with ", selectedTagValues);
+      return { formData: { ...state.formData, tags: selectedTagValues } };
     });
   }
 
@@ -75,18 +56,13 @@ export default class AddNoteForm extends React.Component {
   }
 
   render() {
-    // decide whether to show the <AddTagForm /> or just an empty div
-    const emptySpan = <span></span>;
-    let tagForm = emptySpan;
+      // decide whether to show the <AddTagForm /> or just an empty div
+      const emptySpan = <span></span>;
+      let tagForm = emptySpan;
 
-    if (!this.state.tagFormIsHidden) {
-      tagForm = (
-        <AddTagForm
-          hideForm={this.handleTagFormDisplay}
-          submitForm={this.props.submitNewTag}
-        />
-      );
-    }
+      if (!this.state.tagFormIsHidden) {
+          tagForm = <AddTagForm hideForm={this.handleTagFormDisplay} submitForm={this.props.submitNewTag} />;
+      }
 
     return (
       <div>
