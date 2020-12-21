@@ -43,7 +43,12 @@ export default class AddNoteForm extends React.Component {
 
   handleTagsChange(selectedTagValues) {
     this.setState((state, props) => {
-      console.log("replacing ", state.formData.tags, " with ", selectedTagValues);
+      console.log(
+        "replacing ",
+        state.formData.tags,
+        " with ",
+        selectedTagValues
+      );
       return { formData: { ...state.formData, tags: selectedTagValues } };
     });
   }
@@ -56,13 +61,18 @@ export default class AddNoteForm extends React.Component {
   }
 
   render() {
-      // decide whether to show the <AddTagForm /> or just an empty div
-      const emptySpan = <span></span>;
-      let tagForm = emptySpan;
+    // decide whether to show the <AddTagForm /> or just an empty div
+    const emptySpan = <span></span>;
+    let tagForm = emptySpan;
 
-      if (!this.state.tagFormIsHidden) {
-          tagForm = <AddTagForm hideForm={this.handleTagFormDisplay} submitForm={this.props.submitNewTag} />;
-      }
+    if (!this.state.tagFormIsHidden) {
+      tagForm = (
+        <AddTagForm
+          hideForm={this.handleTagFormDisplay}
+          submitForm={this.props.submitNewTag}
+        />
+      );
+    }
 
     return (
       <div>
