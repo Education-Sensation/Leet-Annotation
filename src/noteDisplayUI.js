@@ -8,7 +8,7 @@ class NoteDisplayUI extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {tags: []};
+    this.state = { tags: [] };
 
     this.handleTagsChange = this.handleTagsChange.bind(this);
     this.handleDisplayClick = this.handleDisplayClick.bind(this);
@@ -22,7 +22,7 @@ class NoteDisplayUI extends React.Component {
   }
 
   handleDisplayClick() {
-    console.log('displaying notes for tags ', this.state.tags);
+    console.log("displaying notes for tags ", this.state.tags);
     this.props.onDisplayClick(this.state.tags);
   }
 
@@ -32,7 +32,7 @@ class NoteDisplayUI extends React.Component {
         <h4>Select a keyword and see the Notes associated.</h4>
         <form>
           {/* add onClick function that will replace text component */}
-          <Dropdown as={ButtonGroup} className="dropdown">
+          {/* <Dropdown as={ButtonGroup} className="dropdown">
             <Button onClick={this.handleDisplayClick} variant="info">Show/Hide Notes</Button>
   
             <Dropdown.Toggle split variant="info" id="dropdown-split-basic" />
@@ -42,15 +42,17 @@ class NoteDisplayUI extends React.Component {
               <Dropdown.Item href="#/action-2">Another keyword</Dropdown.Item>
               <Dropdown.Item href="#/action-3">Another keyword</Dropdown.Item>
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> */}
 
           {/* TODO: please put this into the Dropdown show/hide area in place of the current Dropdown.Menu */}
-          <TagSelector tagList={this.props.tagList} onTagSelect={this.handleTagsChange} />
-
+          <TagSelector
+            tagList={this.props.tagList}
+            onTagSelect={this.handleTagsChange}
+          />
         </form>
         <br />
       </div>
-    );  
+    );
   }
 }
 
