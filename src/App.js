@@ -168,7 +168,7 @@ class App extends React.Component {
               <Card className="card">
                 <Card.Header>
                   <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                    <Button variant="outline-primary">
+                    <Button variant="dark">
                       Click me to Show/Hide Notes for a tag or add a New Note!
                     </Button>
                   </Accordion.Toggle>

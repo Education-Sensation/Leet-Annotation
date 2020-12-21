@@ -1,4 +1,7 @@
 import React from "react";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
+
 
 // Return an array of the selected opion values
 // select is an HTML select element
@@ -42,6 +45,21 @@ export default class TagSelector extends React.Component {
             options.push(<option key={tagObject.id}>{tagObject.text}</option>);
         });
     
-        return <select multiple={true} onChange={this.onSelect}>{options}</select>;    
+        return (
+          <DropdownButton
+            id="dropdown-item-button"
+            title="Select one or multiple tags"
+          >
+            <select
+              className="droptags"
+              multiple={true}
+              name="tags-field"
+              id="tags-field"
+              onChange={this.onSelect}
+            >
+              {options}
+            </select>
+          </DropdownButton>
+        );
     }
 }
