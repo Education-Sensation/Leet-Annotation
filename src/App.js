@@ -5,6 +5,7 @@ import AddReadingTextForm from "./addReadingTextForm";
 import NoteDisplayUI from "./noteDisplayUI";
 // Bootstrap modules
 import "bootstrap/dist/css/bootstrap.min.css";
+import Multiselect from "react-bootstrap-multiselect";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 import Collapse from "react-bootstrap/Collapse";
@@ -168,7 +169,7 @@ class App extends React.Component {
               <Card className="card">
                 <Card.Header>
                   <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                    <Button variant="outline-primary">
+                    <Button variant="dark">
                       Click me to Show/Hide Notes for a tag or add a New Note!
                     </Button>
                   </Accordion.Toggle>

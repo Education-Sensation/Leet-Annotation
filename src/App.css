@@ -47,6 +47,10 @@
   background: white;
 }
 
+.enterNewNote {
+  margin-bottom: 10px;
+}
+
 .show-hide {
   margin-bottom: 10px;
 }
@@ -57,6 +61,19 @@
   height: 40px;
 }
 
+.selector {
+  margin-top: 10px;
+}
+
+div.dropdown {
+  display: inline;
+  margin-right: 5px;
+}
+
+#footer {
+  padding-bottom: 150px;
+}
+
 .newnote {
   margin-bottom: 10px;
 }
@@ -64,7 +81,14 @@
 .tags {
   margin-left: 5px;
   margin-right: 5px;
-  height: 40px;
+}
+
+div.tags.dropdown {
+  display: inline;
+}
+
+div.options.dropdown {
+  display: inline;
 }
 
 .createNewTag {
