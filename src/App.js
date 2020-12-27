@@ -210,7 +210,7 @@ class App extends React.Component {
             <AddReadingTextForm submitNewReadingText={this.setReadingText} />
           </div>
           {/* -- Footer, show New Note, Show and Hide Notes, etc. -- */}
-          <div className="fixed-bottom position-sticky" id="footer">
+          <div className="fixed-bottom position-sticky">
             <Accordion className="accordian-contents">
               <Card className="card">
                 <Card.Header>
