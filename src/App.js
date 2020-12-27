@@ -101,7 +101,7 @@ class App extends React.Component {
     // make a new Note object with formData fields as attributes
     const newNote = {
       text: newNoteData.note,
-      keyphrase: newNoteData.keyPhrase,
+      keyphrase: newNoteData.keyphrase,
       tags: newNoteData.tags,
     };
 
@@ -114,8 +114,55 @@ class App extends React.Component {
     });
   }
 
-  handleDisplayClick() {
-    alert('test!?!');
+  handleDisplayClick(selectedTags) {
+    // TDOO: add "case sensitive" button
+    // TODO: short-circuit if no notes for the selected tags
+
+    console.log('handleDisplayClick called! Checking readingText for any keyphrases associated with tags ', selectedTags, '...');
+    // if this.state.readingText contains any of the user's note's keyphrases, check formatting associated with that note's tag and apply it
+
+    const readingText = this.state.readingText;  // for convenience
+    // keep a list of pointers to track the index of each char of each note's keyphrase (for now, notes only have one keyphrase each)
+    let charPointers = new Array(this.state.notes.length).fill(0);
+    let matches = 0;
+
+    // for each paragraph, (TODO: currently a string)
+    // check each char of the paragraph
+    for (let readingCharIndex = 0; readingCharIndex < readingText.length; readingCharIndex++) {  // readingCharIndex used to insert formatting at correct place
+      const readingChar = readingText[readingCharIndex];
+      console.log('checking ', readingChar);
+
+      // check all the notes
+      for (let noteIndex = 0; noteIndex < this.state.notes.length; noteIndex++) {
+        const note = this.state.notes[noteIndex];
+        const keyphrase = note.keyphrase;
+        const checkCharPointer = charPointers[noteIndex];
+
+        // if the readingText char is the same as the index char of any user keyphrases
+        if (keyphrase[checkCharPointer] === readingChar) {
+          // check if it's the last char of the keyphrase (then apply formatting), else advance the char index pointer for those keyphrases
+          if (checkCharPointer === keyphrase.length - 1) {  // string.length is 1-indexed while checkCharPointer is 0-indexed
+            // use readingCharIndex to insert formatting in right place
+            console.log('readingText contains keyphrase ', keyphrase, ' at index ', readingCharIndex, ' apply formatting here');
+            matches++;
+          } else {
+            console.log('advancing pointer for ', keyphrase, ' since it contains ', readingChar);
+            charPointers[noteIndex]++;
+          }
+        } else {
+          // reset pointer
+          console.log('resetting pointer for ', keyphrase, ' since it contained all the chars until this point but not ', readingChar);
+          charPointers[noteIndex] = 0;
+        }
+      }
+    }
+    // report number of keyphrases found in readingText
+    if (matches > 0) {
+      const notice = 'found ' + matches + ' keyphrases in your reading text and made the annotations specified by their tags';
+      alert(notice);
+    } else {
+      alert('none of your keyphrases appear in this text');
+    }
   }
 
   render() {

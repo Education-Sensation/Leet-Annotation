@@ -45,6 +45,7 @@ class NoteDisplayUI extends React.Component {
           </Dropdown> */}
 
           {/* TODO: please put this into the Dropdown show/hide area in place of the current Dropdown.Menu */}
+          <Button onClick={this.handleDisplayClick} variant="info">Show/Hide Notes</Button>
           <TagSelector
             tagList={this.props.tagList}
             onTagSelect={this.handleTagsChange}
