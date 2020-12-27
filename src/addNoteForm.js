@@ -12,14 +12,14 @@ export default class AddNoteForm extends React.Component {
       tagFormIsHidden: true,
       formData: {
         note: "",
-        keyPhrase: "",
+        keyphrase: "",
         tags: [],
       },
     };
 
     this.handleTagFormDisplay = this.handleTagFormDisplay.bind(this);
     this.handleNoteChange = this.handleNoteChange.bind(this);
-    this.handleKeyPhraseChange = this.handleKeyPhraseChange.bind(this);
+    this.handlekeyphraseChange = this.handlekeyphraseChange.bind(this);
     this.handleTagsChange = this.handleTagsChange.bind(this);
     this.submitNewNote = this.submitNewNote.bind(this);
   }
@@ -35,9 +35,9 @@ export default class AddNoteForm extends React.Component {
     });
   }
 
-  handleKeyPhraseChange(event) {
+  handlekeyphraseChange(event) {
     this.setState({
-      formData: { ...this.state.formData, keyPhrase: event.target.value },
+      formData: { ...this.state.formData, keyphrase: event.target.value },
     });
   }
 
@@ -111,7 +111,7 @@ export default class AddNoteForm extends React.Component {
             name="keyphrase-field"
             id="keyphrase-field"
             type="text"
-            onChange={this.handleKeyPhraseChange}
+            onChange={this.handlekeyphraseChange}
           ></input>
 
           {/* TODO: change this to use props */}
