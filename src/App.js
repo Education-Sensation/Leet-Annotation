@@ -44,9 +44,9 @@ class App extends React.Component {
     this.tagIdGenerator = infiniteTagIdGenerator();
 
     // provide some tags by default
-    const defaultTags = ["highlight", "footnote", "inline note", "hover note"];
-    let defaultTagObjectArray = new Array(defaultTags.length);
-    for (const tagText of defaultTags) {
+    this.defaultTags = ["highlight", "footnote", "inline note", "hover note"];
+    let defaultTagObjectArray = new Array(this.defaultTags.length);
+    for (const tagText of this.defaultTags) {
       let newTag = {
         text: tagText,
         notes: [],
@@ -58,7 +58,7 @@ class App extends React.Component {
 
     this.state = {
       readingText:
-        "initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string",
+        <p>initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string</p>,
       notes: [],
       tags: defaultTagObjectArray,
     };
@@ -67,7 +67,7 @@ class App extends React.Component {
   }
 
   setReadingText(newText) {
-    this.setState({ readingText: newText });
+    this.setState({ readingText: <p>{ newText }</p> });
   }
 
   handleNewTagData(tagText) {
@@ -114,6 +114,44 @@ class App extends React.Component {
     });
   }
 
+  applyFormattedNote(noteObject, readingTextInsertIndex) {
+    // check which formatting tags are associated with the note
+    for (const tag of noteObject.tags) {
+      if (tag === 'highlight') {
+        console.log('applying highlight at index ', readingTextInsertIndex);
+        this.setState((state) => {
+
+          // break reading text into 3 sections, on indices readingTextInsertIndex - noteObject.keyphrase.length and readingTextInsertIndex.
+          const breakpoint1 = readingTextInsertIndex - (noteObject.keyphrase.length - 1);  // -1 to convert .length to zero-based
+          const breakpoint2 = readingTextInsertIndex + 1;  // +1 to convert slice to inclusive
+
+          const section1 = state.readingText.props.children.slice(0, breakpoint1);
+          const section2 = state.readingText.props.children.slice(breakpoint1, breakpoint2);
+          const section3 = state.readingText.props.children.slice(breakpoint2);
+
+          console.log('section 1: ', section1);
+          console.log('section 2: ', section2);
+          console.log('section 3: ', section3);
+
+          // Sections 1 and 3 are placed into plain spans, section 2 is placed into a mark tag
+          const newReadingText = (
+            <p>
+              <span>{ section1 }</span>
+              <mark>{ section2 }</mark>
+              <span>{ section3 }</span>
+            </p>
+          );
+
+          return {readingText: newReadingText};
+        });
+      }
+
+      if (tag === 'inline') {
+
+      }
+    }
+  }
+
   handleDisplayClick(selectedTags) {
     // TDOO: add "case sensitive" button
     // TODO: short-circuit if no notes for the selected tags
@@ -121,7 +159,7 @@ class App extends React.Component {
     console.log('handleDisplayClick called! Checking readingText for any keyphrases associated with tags ', selectedTags, '...');
     // if this.state.readingText contains any of the user's note's keyphrases, check formatting associated with that note's tag and apply it
 
-    const readingText = this.state.readingText;  // for convenience
+    const readingText = this.state.readingText.props.children;  // for convenience
     // keep a list of pointers to track the index of each char of each note's keyphrase (for now, notes only have one keyphrase each)
     let charPointers = new Array(this.state.notes.length).fill(0);
     let matches = 0;
@@ -144,14 +182,14 @@ class App extends React.Component {
           if (checkCharPointer === keyphrase.length - 1) {  // string.length is 1-indexed while checkCharPointer is 0-indexed
             // use readingCharIndex to insert formatting in right place
             console.log('readingText contains keyphrase ', keyphrase, ' at index ', readingCharIndex, ' apply formatting here');
+            this.applyFormattedNote(note, readingCharIndex);
+
             matches++;
           } else {
-            console.log('advancing pointer for ', keyphrase, ' since it contains ', readingChar);
             charPointers[noteIndex]++;
           }
         } else {
           // reset pointer
-          console.log('resetting pointer for ', keyphrase, ' since it contained all the chars until this point but not ', readingChar);
           charPointers[noteIndex] = 0;
         }
       }
