@@ -58,7 +58,7 @@ class App extends React.Component {
 
     this.state = {
       readingText:
-        <p>initial text - Kevin, wait a bit for your blessed paragraphs. It was easier as a plain string</p>,
+        <p><span>initial text -</span><span> Kevin, wait no more for your blessed paragraphs</span><p>The paragraphs are upon us</p></p>,
       notes: [],
       tags: defaultTagObjectArray,
     };
@@ -67,7 +67,10 @@ class App extends React.Component {
   }
 
   setReadingText(newText) {
-    this.setState({ readingText: <p>{ newText }</p> });
+    /* updates the app's reading text
+       newText: any valid JSX expression
+    */
+    this.setState({ readingText: newText });
   }
 
   handleNewTagData(tagText) {
@@ -107,93 +110,77 @@ class App extends React.Component {
 
     console.log("adding note ", newNote, " to ", this.state.notes);
 
-    // append Note object to state array (uses arrow function version of setState() to access previous state)
     this.setState((state, props) => {
       const newNoteArray = state.notes.concat([newNote]);
       return { notes: newNoteArray };
     });
   }
 
-  applyFormattedNote(noteObject, readingTextInsertIndex) {
-    // check which formatting tags are associated with the note
-    for (const tag of noteObject.tags) {
-      if (tag === 'highlight') {
-        console.log('applying highlight at index ', readingTextInsertIndex);
-        this.setState((state) => {
-
-          // break reading text into 3 sections, on indices readingTextInsertIndex - noteObject.keyphrase.length and readingTextInsertIndex.
-          const breakpoint1 = readingTextInsertIndex - (noteObject.keyphrase.length - 1);  // -1 to convert .length to zero-based
-          const breakpoint2 = readingTextInsertIndex + 1;  // +1 to convert slice to inclusive
-
-          const section1 = state.readingText.props.children.slice(0, breakpoint1);
-          const section2 = state.readingText.props.children.slice(breakpoint1, breakpoint2);
-          const section3 = state.readingText.props.children.slice(breakpoint2);
-
-          console.log('section 1: ', section1);
-          console.log('section 2: ', section2);
-          console.log('section 3: ', section3);
-
-          // Sections 1 and 3 are placed into plain spans, section 2 is placed into a mark tag
-          const newReadingText = (
-            <p>
-              <span>{ section1 }</span>
-              <mark>{ section2 }</mark>
-              <span>{ section3 }</span>
-            </p>
-          );
-
-          return {readingText: newReadingText};
-        });
-      }
-
-      if (tag === 'inline') {
-
-      }
-    }
-  }
-
-  handleDisplayClick(selectedTags) {
+  handleDisplayClick(selectedTag) {
+    /*
+    if this.state.readingText contains any of the user's note's keyphrases, applies formatting associated with that note's tag
+    used https://stackoverflow.com/questions/29652862/highlight-text-using-reactjs for reference
+    selectedTags: tag object
+    */
     // TDOO: add "case sensitive" button
-    // TODO: short-circuit if no notes for the selected tags
 
-    console.log('handleDisplayClick called! Checking readingText for any keyphrases associated with tags ', selectedTags, '...');
-    // if this.state.readingText contains any of the user's note's keyphrases, check formatting associated with that note's tag and apply it
+    console.log('handleDisplayClick called! Checking readingText for any keyphrases associated with tags ', selectedTag, '...');
 
-    const readingText = this.state.readingText.props.children;  // for convenience
-    // keep a list of pointers to track the index of each char of each note's keyphrase (for now, notes only have one keyphrase each)
-    let charPointers = new Array(this.state.notes.length).fill(0);
-    let matches = 0;
+    // check reading text for keyphrase matches
+    // for each child node of the readingText outer node, check its children until the child is a text node
+    for (let child of this.state.readingText.childNodes) {  // use childNodes to include text nodes
+      if (child.nodeType === Node.TEXT_NODE) {
+        // found some actual reading text; check for match with ANY of this tag's notes' keyphrases
+        for (const note of selectedTag) {
+          // check if this note's keyphrase appears in the text at this node
+          const keyphrase = note.keyphrase;
+          if (child.textContent.includes(keyphrase)) {
+            // Here! Found a keyphrase match
 
-    // for each paragraph, (TODO: currently a string)
-    // check each char of the paragraph
-    for (let readingCharIndex = 0; readingCharIndex < readingText.length; readingCharIndex++) {  // readingCharIndex used to insert formatting at correct place
-      const readingChar = readingText[readingCharIndex];
-      console.log('checking ', readingChar);
+            // determine which HTML tag to use
+            /* TODO: use this for long-term
+            let settings = {
+              location: '',  // inline, footnote, or hover
+              htmlWrapper: span,
+              className: ''
+            };
+            */
+            let htmlWrapper = <span></span>;
+            for (const tag of note.tags) {
+              if (tag === 'highlight') {
+                htmlWrapper = <mark></mark>;
+              }
+            }
 
-      // check all the notes
-      for (let noteIndex = 0; noteIndex < this.state.notes.length; noteIndex++) {
-        const note = this.state.notes[noteIndex];
-        const keyphrase = note.keyphrase;
-        const checkCharPointer = charPointers[noteIndex];
+            // apply CSS-formatted versions of the display-related tags as class name
+            let classes = '';
+            for (const tag of note.tags) {
+              if (tag === 'highlight') {
+                classes += tag.replace(' ', '-');
+              } else {
+                classes += tag.replace(' ', '-');
+              }
+            }
+                       
+            // split the text node on keyphrase (retaining keyphrase in result)
+            // in regex, () includes the delimiter in the result, g matches all occurrences, and i ignores case
+            const parts = child.textContent.split(new RegExp(`(${keyphrase})`, 'gi'));
 
-        // if the readingText char is the same as the index char of any user keyphrases
-        if (keyphrase[checkCharPointer] === readingChar) {
-          // check if it's the last char of the keyphrase (then apply formatting), else advance the char index pointer for those keyphrases
-          if (checkCharPointer === keyphrase.length - 1) {  // string.length is 1-indexed while checkCharPointer is 0-indexed
-            // use readingCharIndex to insert formatting in right place
-            console.log('readingText contains keyphrase ', keyphrase, ' at index ', readingCharIndex, ' apply formatting here');
-            this.applyFormattedNote(note, readingCharIndex);
+            // wrap the keyphrase in a new inline element tag (non-inline tags coming soon...)
+            const newNodeContents = parts.map((substring, index) => {
 
-            matches++;
-          } else {
-            charPointers[noteIndex]++;
-          }
+              return <span key={index}> { substring } </span>;
+            });
+
+            // set the new classes
+            htmlWrapper.className = classes;
         } else {
-          // reset pointer
-          charPointers[noteIndex] = 0;
-        }
+        // this child node isn't a text node... but it might have one inside!
+        const glo = 0;
       }
     }
+    
+    
     // report number of keyphrases found in readingText
     if (matches > 0) {
       const notice = 'found ' + matches + ' keyphrases in your reading text and made the annotations specified by their tags';
