@@ -57,8 +57,10 @@ class App extends React.Component {
     }
 
     this.state = {
-      readingText:
-        <p><span>initial text -</span><span> Kevin, wait no more for your blessed paragraphs</span><p>The paragraphs are upon us</p></p>,
+      readingText: [
+        <p><span>initial text -</span><span> Kevin, wait no more for your blessed paragraphs</span></p>,
+        <p>The paragraphs are upon us</p>
+      ],
       notes: [],
       tags: defaultTagObjectArray,
     };
@@ -116,23 +118,26 @@ class App extends React.Component {
     });
   }
 
-  handleDisplayClick(selectedTag) {
+  formatElement(currentNode, selectedTag) {
     /*
-    if this.state.readingText contains any of the user's note's keyphrases, applies formatting associated with that note's tag
-    used https://stackoverflow.com/questions/29652862/highlight-text-using-reactjs for reference
-    selectedTags: tag object
+    returns a new element with formatting applied based on the selected tag
+    helper for handleDisplayClick
+    currentNode: reference to the current node, for iteration
+    selectedTag: reference to the tag whose notes should be displayed
     */
-    // TDOO: add "case sensitive" button
-
-    console.log('handleDisplayClick called! Checking readingText for any keyphrases associated with tags ', selectedTag, '...');
-
-    // check reading text for keyphrase matches
     // for each child node of the readingText outer node, check its children until the child is a text node
-    for (let child of this.state.readingText.childNodes) {  // use childNodes to include text nodes
+    for (let nodeIndex = 0; nodeIndex < currentNode.childNodes.length; ++nodeIndex) {  // use childNodes to include text nodes
+      let child = currentNode.childNodes[nodeIndex];
+
+      // base case 1: reached a leaf
+      if (!child) {
+        return
+      }
+
+      // base case 2: reached a text node
       if (child.nodeType === Node.TEXT_NODE) {
-        // found some actual reading text; check for match with ANY of this tag's notes' keyphrases
+        // check for match with any of this tag's notes' keyphrases
         for (const note of selectedTag) {
-          // check if this note's keyphrase appears in the text at this node
           const keyphrase = note.keyphrase;
           if (child.textContent.includes(keyphrase)) {
             // Here! Found a keyphrase match
@@ -141,16 +146,17 @@ class App extends React.Component {
             /* TODO: use this for long-term
             let settings = {
               location: '',  // inline, footnote, or hover
-              htmlWrapper: span,
+              tagType: span,  // can't use variable tag types in JSX
               className: ''
             };
             */
-            let htmlWrapper = <span></span>;
+            let tagType = 'span';
             for (const tag of note.tags) {
               if (tag === 'highlight') {
-                htmlWrapper = <mark></mark>;
+                tagType = 'mark';
               }
             }
+            let htmlWrapper = Document.createElement(tagType);
 
             // apply CSS-formatted versions of the display-related tags as class name
             let classes = '';
@@ -161,26 +167,62 @@ class App extends React.Component {
                 classes += tag.replace(' ', '-');
               }
             }
-                       
+            htmlWrapper.className = classes;
+            
             // split the text node on keyphrase (retaining keyphrase in result)
             // in regex, () includes the delimiter in the result, g matches all occurrences, and i ignores case
             const parts = child.textContent.split(new RegExp(`(${keyphrase})`, 'gi'));
 
             // wrap the keyphrase in a new inline element tag (non-inline tags coming soon...)
-            const newNodeContents = parts.map((substring, index) => {
+            const newChildNode = parts.map((substring, index) => {
+              // only wrap the keyphrase; leave the other text alone
+              if (substring === keyphrase) {
+                htmlWrapper.key = index;  // TODO: use unique IDs
+                htmlWrapper.textContent = keyphrase;
+                return htmlWrapper;
+              }
 
-              return <span key={index}> { substring } </span>;
+              // this is neighboring non-keyphrase text in the node; just include it in order, unchanged
+              return substring;
             });
 
-            // set the new classes
-            htmlWrapper.className = classes;
-        } else {
-        // this child node isn't a text node... but it might have one inside!
-        const glo = 0;
+            // actually update the param node with the formatted version
+            currentNode.childNodes[nodeIndex] = newChildNode;
+          }
+        }
+      } else {
+        // recursive case: this child isn't a text node... but it might have one inside!
+        this.formatElement(child, selectedTag);
       }
     }
-    
-    
+  }
+
+  handleDisplayClick(selectedTag) {
+    /*
+    updates readingText with the user's annotations
+    used https://stackoverflow.com/questions/29652862/highlight-text-using-reactjs for reference
+    selectedTag: tag object whose notes will be displayed
+    */
+    // TDOO: add "case sensitive" button
+    console.log('handleDisplayClick called! Checking readingText for any keyphrases associated with tags ', selectedTag, '...');
+
+    // check reading text for keyphrase matches
+    let index = 0
+    for (let paragraph of this.state.readingText) {
+      // recursively search all of this paragraph's child nodes (this approach preserves existing annotations)
+      const newParagraph = this.formatElement(paragraph);
+
+      // update state with the new paragraph
+      this.setState((state) => {
+        copy = Array.from(state.readingText);
+        copy[index] = newParagraph;
+        return { readingText: copy };
+      });
+
+      // maintain loop
+      index++;
+    }
+
     // report number of keyphrases found in readingText
     if (matches > 0) {
       const notice = 'found ' + matches + ' keyphrases in your reading text and made the annotations specified by their tags';
