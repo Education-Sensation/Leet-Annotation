@@ -39,6 +39,7 @@ class App extends React.Component {
     this.appendNote = this.appendNote.bind(this);
     this.handleNewTagData = this.handleNewTagData.bind(this);
     this.handleDisplayClick = this.handleDisplayClick.bind(this);
+    this.formatElement = this.formatElement.bind(this);
 
     // generator for unique IDs (tag IDs distinct from other kinds of IDs because of leading 't')
     this.tagIdGenerator = infiniteTagIdGenerator();
@@ -118,29 +119,32 @@ class App extends React.Component {
     });
   }
 
-  formatElement(currentNode, selectedTag) {
+  formatElement(currentNode, selectedTag, matchesMemo) {
     /*
     returns a new element with formatting applied based on the selected tag
     helper for handleDisplayClick
     currentNode: reference to the current node, for iteration
     selectedTag: reference to the tag whose notes should be displayed
+    matchesMemo: array singleton to track number of keyphrase matches
     */
+    // base case: reached a leaf
+    debugger;
+    if (!currentNode || currentNode.type === 'string') {
+      return
+    }
+
     // for each child node of the readingText outer node, check its children until the child is a text node
-    for (let nodeIndex = 0; nodeIndex < currentNode.childNodes.length; ++nodeIndex) {  // use childNodes to include text nodes
-      let child = currentNode.childNodes[nodeIndex];
+    for (let nodeIndex = 0; nodeIndex < currentNode.props.children.length; ++nodeIndex) {  // use childNodes to include text nodes
+      let child = currentNode.props.children[nodeIndex];
 
-      // base case 1: reached a leaf
-      if (!child) {
-        return
-      }
-
-      // base case 2: reached a text node
-      if (child.nodeType === Node.TEXT_NODE) {
+      // reached a "text node"
+      if (typeof child.props.children === 'string') {
         // check for match with any of this tag's notes' keyphrases
-        for (const note of selectedTag) {
+        for (const note of selectedTag.notes) {
           const keyphrase = note.keyphrase;
           if (child.textContent.includes(keyphrase)) {
             // Here! Found a keyphrase match
+            matchesMemo[0]++;
 
             // determine which HTML tag to use
             /* TODO: use this for long-term
@@ -187,12 +191,12 @@ class App extends React.Component {
             });
 
             // actually update the param node with the formatted version
-            currentNode.childNodes[nodeIndex] = newChildNode;
+            currentNode.props.children[nodeIndex] = newChildNode;
           }
         }
       } else {
         // recursive case: this child isn't a text node... but it might have one inside!
-        this.formatElement(child, selectedTag);
+        this.formatElement(child, selectedTag, matchesMemo);
       }
     }
   }
@@ -201,20 +205,21 @@ class App extends React.Component {
     /*
     updates readingText with the user's annotations
     used https://stackoverflow.com/questions/29652862/highlight-text-using-reactjs for reference
-    selectedTag: tag object whose notes will be displayed
+    selectedTag: string referring to the tag object whose notes will be displayed
     */
     // TDOO: add "case sensitive" button
     console.log('handleDisplayClick called! Checking readingText for any keyphrases associated with tags ', selectedTag, '...');
 
     // check reading text for keyphrase matches
-    let index = 0
+    let matches = [0];  // wrapped in array to be mutable
+    let index = 0;
     for (let paragraph of this.state.readingText) {
       // recursively search all of this paragraph's child nodes (this approach preserves existing annotations)
-      const newParagraph = this.formatElement(paragraph);
+      const newParagraph = this.formatElement(paragraph, selectedTag, matches);
 
       // update state with the new paragraph
       this.setState((state) => {
-        copy = Array.from(state.readingText);
+        let copy = Array.from(state.readingText);
         copy[index] = newParagraph;
         return { readingText: copy };
       });
