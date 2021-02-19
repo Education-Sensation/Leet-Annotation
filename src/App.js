@@ -40,6 +40,7 @@ class App extends React.Component {
     this.handleNewTagData = this.handleNewTagData.bind(this);
     this.handleDisplayClick = this.handleDisplayClick.bind(this);
     this.formatElement = this.formatElement.bind(this);
+    this.getTagIndex = this.getTagIndex.bind(this);
 
     // generator for unique IDs (tag IDs distinct from other kinds of IDs because of leading 't')
     this.tagIdGenerator = infiniteTagIdGenerator();
@@ -67,6 +68,23 @@ class App extends React.Component {
     };
 
     console.log("default tags working? ", this.state.tags);
+  }
+
+  getTagIndex(tagName) {
+    /*
+    returns the index of the tag in this.state.tags whose tag text matches the given string
+    tagName: string naming the tag to get
+    return: int index
+    */
+    let index = 0;
+    for (const tag of this.state.tags) {
+      if (tag && tag.text === tagName) {  // TODO: must fix 4-indexed array in this.state.tags! So weird
+        return index;
+      }
+      index++;
+    }
+    // didn't match any state tags
+    return -1;
   }
 
   setReadingText(newText) {
@@ -128,7 +146,6 @@ class App extends React.Component {
     matchesMemo: array singleton to track number of keyphrase matches
     */
     // base case: reached a leaf
-    debugger;
     if (!currentNode || currentNode.type === 'string') {
       return
     }
@@ -201,15 +218,17 @@ class App extends React.Component {
     }
   }
 
-  handleDisplayClick(selectedTag) {
+  handleDisplayClick(tagName) {
     /*
     updates readingText with the user's annotations
     used https://stackoverflow.com/questions/29652862/highlight-text-using-reactjs for reference
     selectedTag: string referring to the tag object whose notes will be displayed
     */
     // TDOO: add "case sensitive" button
-    console.log('handleDisplayClick called! Checking readingText for any keyphrases associated with tags ', selectedTag, '...');
+    console.log('handleDisplayClick called! Checking readingText for any keyphrases associated with tags ', tagName, '...');
 
+    const tagIndex = this.getTagIndex(tagName);
+    const selectedTag = this.state.tags[tagIndex];
     // check reading text for keyphrase matches
     let matches = [0];  // wrapped in array to be mutable
     let index = 0;
